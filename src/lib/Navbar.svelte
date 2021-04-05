@@ -18,6 +18,7 @@
 	import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 	import { faBell } from '@fortawesome/free-solid-svg-icons/faBell';
 	import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
+	import { notifications } from "../stores/SessionStore"
 
 	let isOpen = false;
 
@@ -52,7 +53,7 @@
 				<NavItem class="dm-md-r">
 					<NavLink href="/notifications">
 						<Icon class="myClass1 myClass2" icon={faBell} />
-						0
+						{$notifications}
 					</NavLink>
 				</NavItem>
 				<NavItem>

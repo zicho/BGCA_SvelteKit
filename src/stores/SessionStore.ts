@@ -8,7 +8,7 @@ import { browser } from '$app/env';
 export const isAuthed = writable(false);
 export const notifications = writable(0);
 
-class SessionStore {//} extends BaseStore<AuthUserModel> {
+class SessionStore extends BaseStore<AuthUserModel> {
 
     // get userAuthed(): boolean { return this.getData != null; }
 
@@ -19,16 +19,16 @@ class SessionStore {//} extends BaseStore<AuthUserModel> {
         if (serviceResponse.success) {
             setCookie("userToken", serviceResponse.data.jwt);
             isAuthed.set(true)
-            // this.store.set(serviceResponse.data);
-            await this.getUnreadNotifications();
+            this.store.set(serviceResponse.data);
+            await this.getUnreadNotifications(serviceResponse.data.username);
             connect(serviceResponse.data.jwt);
         }
 
         return serviceResponse;
     }
 
-    public async getUnreadNotifications(): Promise<ServiceResponse<number>> {
-        let response = await NotificationService.getUnread(this.getData.username);
+    public async getUnreadNotifications(username: string): Promise<ServiceResponse<number>> {
+        let response = await NotificationService.getUnreadNotifications(username == null ? this.getData.username : username);
         notifications.set(response.data);
         return response; 
     }
