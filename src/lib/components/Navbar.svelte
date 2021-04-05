@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isAuthed, sessionStore } from '../stores/SessionStore';
+	import { isAuthed, sessionStore, notifications } from '../stores/SessionStore';
 	import {
 		Collapse,
 		Navbar,
@@ -18,7 +18,6 @@
 	import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 	import { faBell } from '@fortawesome/free-solid-svg-icons/faBell';
 	import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
-	import { notifications } from "../stores/SessionStore"
 
 	let isOpen = false;
 

@@ -1,9 +1,7 @@
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from "@microsoft/signalr";
-import type * as signalR from "@microsoft/signalr";
 import type { NotificationModel, PrivateMessageModel } from 'library'
-// import { sessionStore } from '../../stores/SessionStore'
+import { sessionStore } from '$lib/stores/SessionStore'
 import { toastr } from './Toastr'
-
 
 let connection: HubConnection
 
@@ -16,8 +14,7 @@ export async function connect(jwt: string) {
         .build();
 
     connection.on("SendNotice", (model: NotificationModel) => {
-
-        // sessionStore.getUnreadNotifications();
+        sessionStore.getUnreadNotifications();
 
         if (model.subject != null) {
             toastr.success(model.content, model.subject);

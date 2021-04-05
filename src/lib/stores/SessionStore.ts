@@ -4,6 +4,7 @@ import { BaseStore } from './BaseStore';
 import { NotificationService } from 'library'
 import { connect, disconnect } from '$lib/core/SignalR';
 import { browser } from '$app/env';
+import { toastr } from "$lib/core/Toastr"
 
 export const isAuthed = writable(false);
 export const notifications = writable(0);
@@ -17,6 +18,7 @@ class SessionStore extends BaseStore<AuthUserModel> {
         let serviceResponse: ServiceResponse<AuthUserModel> = await UserService.login(model);
         
         if (serviceResponse.success) {
+            toastr.success("yo");
             setCookie("userToken", serviceResponse.data.jwt);
             isAuthed.set(true)
             this.store.set(serviceResponse.data);
@@ -27,8 +29,8 @@ class SessionStore extends BaseStore<AuthUserModel> {
         return serviceResponse;
     }
 
-    public async getUnreadNotifications(username: string): Promise<ServiceResponse<number>> {
-        let response = await NotificationService.getUnreadNotifications(username == null ? this.getData.username : username);
+    public async getUnreadNotifications(username: string = null): Promise<ServiceResponse<number>> {
+        let response = await NotificationService.getUnreadNotifications(username == null ? super.getData.username : username);
         notifications.set(response.data);
         return response; 
     }
