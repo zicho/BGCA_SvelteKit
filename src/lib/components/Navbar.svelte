@@ -18,6 +18,7 @@
 	import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 	import { faBell } from '@fortawesome/free-solid-svg-icons/faBell';
 	import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
+	import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
 
 	let isOpen = false;
 
@@ -29,18 +30,21 @@
 		e.preventDefault();
 		sessionStore.logout();
 	};
+
+	$: unreadNotifications = $notifications != 0;
 </script>
 
 <Navbar color="dark" dark expand="md">
 	<NavbarBrand href="/">sveltestrap</NavbarBrand>
 	<NavbarToggler on:click={() => (isOpen = !isOpen)} />
-	{#if $isAuthed}
+	
 		<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
 			<Nav class="ml-auto" navbar>
+				{#if $isAuthed}
 				<NavItem class="dm-md-r">
 					<NavLink href="/profile">
 						<Icon class="myClass1 myClass2" icon={faUser} />
-                        Profile
+						Profile
 					</NavLink>
 				</NavItem>
 				<NavItem>
@@ -51,6 +55,22 @@
 				</NavItem>
 				<NavItem class="dm-md-r">
 					<NavLink href="/notifications">
+						<!-- <span
+							class="fas fa-stack fa-fw clear-defaults"
+							class:active={unreadNotifications === true}
+						>
+							{#if unreadNotifications}
+								<Icon icon={faCircle} class="fas fa-stack-2x notify" />
+							{/if}
+							<Icon icon={faBell} class="navbar-icon fas fa-stack-2x fa-inverse" />
+						</span>
+						<span>{$notifications}</span>
+
+						<span class="fa-stack fa-3x" data-count="28">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+						  </span> -->
+
 						<Icon class="myClass1 myClass2" icon={faBell} />
 						{$notifications}
 					</NavLink>
@@ -61,6 +81,14 @@
 						Sign Out
 					</NavLink>
 				</NavItem>
+				{:else} 
+				<NavItem class="dm-md-r">
+					<NavLink href="/about">
+						<Icon class="myClass1 myClass2" icon={faUser} />
+						Profile
+					</NavLink>
+				</NavItem>
+				{/if}
 				<!-- <UncontrolledDropdown nav inNavbar>
 					<DropdownToggle nav caret>Options</DropdownToggle>
 					<DropdownMenu right>
@@ -72,5 +100,23 @@
 				</UncontrolledDropdown> -->
 			</Nav>
 		</Collapse>
-	{/if}
+	
 </Navbar>
+
+<style>
+	.fa-stack[data-count]:after {
+		position: absolute;
+		right: 0%;
+		top: 1%;
+		content: attr(data-count);
+		font-size: 30%;
+		padding: 0.6em;
+		border-radius: 999px;
+		line-height: 0.75em;
+		color: white;
+		background: rgba(255, 0, 0, 0.85);
+		text-align: center;
+		min-width: 2em;
+		font-weight: bold;
+	}
+</style>

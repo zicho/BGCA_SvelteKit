@@ -3,4 +3,4 @@
 </script>
 
 <h1>Hello world!</h1>
-<p>Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte apps.</p>
+<p>Visit <a href="/messages">svelte.dev</a> to learn how to build Svelte apps.</p>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { sessionStore } from '../stores/SessionStore';
+	import { sessionStore } from '../lib/stores/SessionStore';
 	import { Button, Spinner, Row, Container, Form, FormGroup, Label, Input } from 'sveltestrap';
 	import { LoginUserModel } from 'library';
 	import { fade } from 'svelte/transition';
